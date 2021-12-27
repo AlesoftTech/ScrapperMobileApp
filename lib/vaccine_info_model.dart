@@ -60,15 +60,15 @@ class ViccinesInfo {
   String toJson() => json.encode(toMap());
 
   factory ViccinesInfo.fromMap(Map<String, dynamic> json) => ViccinesInfo(
-    healthEntityFristDose: json["health_entity_frist_dose"] == null ? null : json["health_entity_frist_dose"],
-    vaccineFirstDose: json["vaccine_first_dose"] == null ? null : json["vaccine_first_dose"],
-    vaccineFirstDoseBatch: json["vaccine_first_dose_batch"] == null ? null : json["vaccine_first_dose_batch"],
-    vaccineFirstDoseCountry: json["vaccine_first_dose_country"] == null ? null : json["vaccine_first_dose_country"],
+    healthEntityFristDose: json["health_entity_frist_dose"] == null ? 'sin primera dosis' : json["health_entity_frist_dose"],
+    vaccineFirstDose: json["vaccine_first_dose"] == null ? 'sin primera dosis' : json["vaccine_first_dose"],
+    vaccineFirstDoseBatch: json["vaccine_first_dose_batch"] == null ? 'sin primera dosis' : json["vaccine_first_dose_batch"],
+    vaccineFirstDoseCountry: json["vaccine_first_dose_country"] == null ? 'sin primera dosis' : json["vaccine_first_dose_country"],
     vaccineFirstDoseDate: DateTime.parse(json["vaccine_first_dose_date"]),
-    healthEntitySecondDose: json["health_entity_second_dose"] == null ? null : json["health_entity_second_dose"],
-    vaccineSecondDose: json["vaccine_second_dose"] == null ? null : json["vaccine_second_dose"],
-    vaccineSecondDoseBatch: json["vaccine_second_dose_batch"] == null ? null : json["vaccine_second_dose_batch"],
-    vaccineSecondDoseCountry: json["vaccine_second_dose_country"] == null ? null : json["vaccine_second_dose_country"],
+    healthEntitySecondDose: json["health_entity_second_dose"] == null ? 'sin segunda dosis' : json["health_entity_second_dose"],
+    vaccineSecondDose: json["vaccine_second_dose"] == null ? 'sin segunda dosis' : json["vaccine_second_dose"],
+    vaccineSecondDoseBatch: json["vaccine_second_dose_batch"] == null ? 'sin segunda dosis'  : json["vaccine_second_dose_batch"],
+    vaccineSecondDoseCountry: json["vaccine_second_dose_country"] == null ? 'sin segunda dosis'  : json["vaccine_second_dose_country"],
   );
 
   Map<String, dynamic> toMap() => {

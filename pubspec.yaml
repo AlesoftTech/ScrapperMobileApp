@@ -31,6 +31,8 @@ dependencies:
   qr_code_scanner: ^0.0.13
   get: ^4.3.8
   dio: ^4.0.4
+  google_fonts: ^2.1.0
+  audioplayers: ^0.20.1
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +53,9 @@ flutter:
   assets:
      - assets/beep-07.mp3
      - assets/open-padlock.png
+     - assets/vaccine.png
+     - assets/vaccines.png
+     - assets/scanner.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

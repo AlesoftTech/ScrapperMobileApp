@@ -7,7 +7,7 @@ class API{
 
   final _dio = Dio();
 
-  final String url = "http://cda1-181-55-209-198.ngrok.io";
+  final String url = "http://58ee-181-55-209-198.ngrok.io";
 
   Future getHttp(String path) async {
     try{

@@ -1,4 +1,5 @@
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:covid_scanner/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,10 @@ class _QRViewExampleState extends State<QRViewExample> {
   QRViewController controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
+  static AudioCache player = new AudioCache();
+  static const  alarmAudioPath = "beep-07.mp3";
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +36,7 @@ class _QRViewExampleState extends State<QRViewExample> {
             key: qrKey,
             onQRViewCreated: _onQRViewCreated,
             overlay: QrScannerOverlayShape(
-              borderColor: Colors.lightBlueAccent,
+              borderColor: Color.fromARGB(255, 108, 193, 144),
               borderRadius: 10,
               borderLength: 150,
               borderWidth: 5,
@@ -49,7 +54,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                     iconSize: 40,
                     icon: Icon(
                         Icons.flash_on_outlined,
-                      color: Colors.lightBlueAccent,
+                      color: Color.fromARGB(255, 108, 193, 144),
                     ),
                     onPressed: () {
                       if (controller != null) {
@@ -70,7 +75,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                     iconSize: 40,
                     icon: Icon(
                       Icons.flip_camera_android_outlined,
-                      color: Colors.lightBlueAccent,
+                      color: Color.fromARGB(255, 108, 193, 144),
                     ),
                     onPressed: () {
                       if (controller != null) {
@@ -91,7 +96,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                     iconSize: 40,
                     icon: Icon(
                       Icons.pause_circle_filled_outlined,
-                      color: Colors.lightBlueAccent,
+                      color: Color.fromARGB(255, 108, 193, 144),
                     ),
                     onPressed: () {
                       controller?.pauseCamera();
@@ -101,7 +106,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                     iconSize: 40,
                     icon: Icon(
                       Icons.play_circle_fill_outlined,
-                      color: Colors.lightBlueAccent,
+                      color: Color.fromARGB(255, 108, 193, 144),
                     ),
                     onPressed: () {
                       controller?.resumeCamera();
@@ -130,9 +135,11 @@ class _QRViewExampleState extends State<QRViewExample> {
       setState(() {
         qrText = scanData;
       });
+      player.play(alarmAudioPath);
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return new MyHomePage(scanData);
       }));
+      dispose();
     });
   }
 

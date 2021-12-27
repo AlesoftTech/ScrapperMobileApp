@@ -2,116 +2,238 @@ import 'package:covid_scanner/info_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AccessGranted extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(
-          "VacChecker",
-          style: TextStyle(
-              color: Colors.lightBlueAccent
-          ),
-        ),
-        backgroundColor: Colors.white,
-        actions: [
-
-        ],
-      ),
       body: GetBuilder<InfoController>(
           builder: (_){
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _.loading? Center(child: CircularProgressIndicator(),) :
-                Flexible(
-                  child: Card(
-                    shadowColor: Colors.grey.withOpacity(0.6),
-                    color: Colors.white,
-                    child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('cédula: ${_.vaccine.id}'),
+            return Padding(
+              padding: const EdgeInsets.only(top: 50),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _.loading? Center(child: CircularProgressIndicator(),) :
+                  _.vaccine.viccinesInfo.length != 1 && _.vaccine.viccinesInfo[1].vaccineSecondDose != 'sin segunda dosis'? Flexible(
+                    child: Column(
+                      children: [
+                        Flexible(
+                          child: Container(
+                            width: Get.width * 0.8,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Text(
+                                      '${_.vaccine.name}',
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 33, 118, 129),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Text(
+                                      'CÉDULA: ${_.vaccine.id}',
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.roboto(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('nombre: ${_.vaccine.name}'),
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Flexible(
+                                child: Container(
+                                  width: Get.width * 0.5,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Container(
+                                          height: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: Color.fromARGB(255, 207, 243, 248),
+                                          ),
+                                          child: Image.asset('assets/vaccines.png'),
+                                        ),
+                                        Flexible(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(bottom: 10, top: 10),
+                                            child: Text(
+                                              '${_.vaccine.viccinesInfo[0].vaccineFirstDose}',
+                                              textAlign: TextAlign.center,
+                                              style: GoogleFonts.roboto(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Flexible(
+                                child: Container(
+                                  width: Get.width * 0.5,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Container(
+                                          height: 150,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: Color.fromARGB(255, 206, 255, 227),
+                                          ),
+                                          child: Image.asset('assets/vaccines.png'),
+                                        ),
+                                        Flexible(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(bottom: 10, top: 10),
+                                            child: Text(
+                                              '${_.vaccine.viccinesInfo[1].vaccineSecondDose}',
+                                              textAlign: TextAlign.center,
+                                              style: GoogleFonts.roboto(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ) :
+                  Flexible(
+                    child: Column(
+                      children: [
+                        Flexible(
+                          child: Container(
+                            width: Get.width * 0.8,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Text(
+                                      '${_.vaccine.name}',
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 33, 118, 129),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Text(
+                                      'CÉDULA: ${_.vaccine.id}',
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.roboto(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Intitución primera dosis: ${_.vaccine.viccinesInfo[0].healthEntityFristDose}'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Flexible(
+                            child: Container(
+                              width: Get.width * 0.5,
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      height: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Color.fromARGB(255, 207, 243, 248),
+                                      ),
+                                      child: Image.asset('assets/vaccines.png'),
+                                    ),
+                                    Flexible(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(bottom: 10, top: 10),
+                                        child: Text(
+                                          '${_.vaccine.viccinesInfo[0].vaccineFirstDose}',
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.roboto(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Marca primera dosis: ${_.vaccine.viccinesInfo[0].vaccineFirstDose}'),
-                            ),
-                          ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Lote primera dosis: ${_.vaccine.viccinesInfo[0].vaccineFirstDoseBatch}'),
-                            ),
-                          ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('País primera dosis: ${_.vaccine.viccinesInfo[0].vaccineFirstDoseCountry}'),
-                            ),
-                          ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Fecha primera dosis: ${_.vaccine.viccinesInfo[0].vaccineFirstDoseDate}'),
-                            ),
-                          ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Intitución segunda dosis: ${_.vaccine.viccinesInfo[1].healthEntitySecondDose}'),
-                            ),
-                          ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Marca segunda dosis: ${_.vaccine.viccinesInfo[1].vaccineSecondDose}' ),
-                            ),
-                          ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Lote segunda dosis: ${_.vaccine.viccinesInfo[1].vaccineSecondDoseBatch}'),
-                            ),
-                          ),
-                          Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('País segunda dosis: ${_.vaccine.viccinesInfo[1].vaccineSecondDoseCountry}'),
-                            ),
-                          ),
-                          Flexible(child: Text('Fecha primera dosis: ${_.vaccine.viccinesInfo[1].vaccineFirstDoseDate}')),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           }
       )

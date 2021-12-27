@@ -1,10 +1,17 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:covid_scanner/_qrView.dart';
 import 'package:covid_scanner/access_granted.dart';
+import 'package:covid_scanner/custom_outlined_button.dart';
 import 'package:covid_scanner/info_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(MyApp());
 }
 
@@ -15,6 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -73,40 +81,87 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
+
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(
-            "VacChecker",
-          style: TextStyle(
-            color: Colors.lightBlueAccent
-          ),
-        ),
-        backgroundColor: Colors.white,
-      ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          idForm(),
-          Container(
-            margin: EdgeInsets.all(10),
-            child: OutlinedButton(
-              child: Text("Consultar"),
-              onPressed: (){
-                if(data.isEmpty){
-                  Get.snackbar("error", "vacìo");
-                }else{
-                  InfoController cont = Get.put(InfoController());
-                  cont.fetchInfo(data);
-                  Get.to(AccessGranted());
-                }
-              },
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Text(
+              'Escanear carnét de vacunación',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 33, 118, 129),
+              ),
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Text(
+              'Al presionar el botón iniciar, deberá escanear el código Qr del certificado.',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.roboto(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Container(
+            height: 200,
+            width: 200,
+            child: Center(
+              child: Image.asset('assets/scanner.png'),
+            ),
+          ),
+          idForm(),
+          Padding(
+              padding: const EdgeInsets.only(top: 40, right: 20, left: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: CustomOutlinedButton(
+                      text: 'Consultar',
+                      color: Color.fromARGB(255, 108, 193, 144),
+                      textColor: Colors.white,
+                      isFilled: true,
+                      onPressed: (){
+                        if(data.isEmpty){
+                          Get.snackbar("error", "vacìo");
+                        }else{
+                          InfoController cont = Get.put(InfoController());
+                          cont.fetchInfo(data);
+                          Get.to(AccessGranted());
+                        }
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    child: CustomOutlinedButton(
+                      text: 'Escanear',
+                      color: Color.fromARGB(255, 33, 118, 129),
+                      textColor: Colors.white,
+                      isFilled: true,
+                      onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) {
+                          QRViewExample qr =  QRViewExample();
+                          return qr;
+                        }));
+                      },
+                    ),
+                  ),
+                ],
+              )
+          ),
         ],
-      ),
-      floatingActionButton: scann(),// This trailing comma makes auto-formatting nicer for build methods.
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
@@ -119,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
           fillColor: Colors.lightBlueAccent,
-          labelText: "Credentials",
+          labelText: "",
           border: OutlineInputBorder(),
         ),
       ),
